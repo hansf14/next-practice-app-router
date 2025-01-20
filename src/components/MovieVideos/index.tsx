@@ -8,10 +8,10 @@ export async function getVideos({ movieId }: { movieId: string }) {
 }
 
 export async function MovieVideos({ movieId }: { movieId: string }) {
-	const videos = await getVideos({ movieId });
+	const videos: any[] = await getVideos({ movieId });
 	return (
 		<div className={styles["container"]}>
-			{videos.map((video: any) => {
+			{videos.map((video) => {
 				return (
 					<iframe
 						key={video.id}

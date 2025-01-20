@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { API_URL, MovieData } from "@/globals";
 import { Movie } from "@/components/Movie";
 import styles from "./styles.module.css";

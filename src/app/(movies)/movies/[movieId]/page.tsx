@@ -4,7 +4,7 @@ import { MovieVideos } from "@/components/MovieVideos";
 
 interface PageProps {
 	params: Promise<{ movieId: string }>;
-	searchParams: Promise<{}>;
+	searchParams: Promise<object>;
 }
 
 export async function generateMetadata(props: PageProps) {
