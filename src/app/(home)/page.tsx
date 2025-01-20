@@ -1,29 +1,34 @@
-"use client";
 import { Metadata } from "next";
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { API_URL, MovieData } from "@/globals";
+import { Movie } from "@/components/Movie";
+import styles from "./styles.module.css";
 
-// export const metadata: Metadata = {
-// 	title: "Home",
-// };
+export const metadata: Metadata = {
+	title: "Home",
+};
 
-export default function Home() {
-	const [stateMovies, setStateMovies] = useState<any[]>([]);
-	const [stateIsLoading, setStateIsLoading] = useState<boolean>(true);
+async function getMovies() {
+	// sleep 5 seconds
+	// await new Promise((resolve) => setTimeout(resolve, 5000));
 
-	const getMovies = async () => {
-		const response = await fetch(
-			"https://nomad-movies.nomadcoders.workers.dev/movies"
-		);
-		const json = await response.json();
-		setStateMovies(json);
-		setStateIsLoading(false);
-	};
+	const response = await fetch(API_URL);
+	const json = await response.json();
+	return json;
+}
 
-	useEffect(() => {
-		getMovies();
-	}, []);
-
+export default async function HomePage() {
+	const movies: MovieData[] = await getMovies();
 	return (
-		<div>{stateIsLoading ? "Loading..." : JSON.stringify(stateMovies)}</div>
+		<div className={styles["container"]}>
+			{movies.map((movie) => (
+				<Movie
+					key={movie.id}
+					id={movie.id}
+					title={movie.title}
+					poster_path={movie.poster_path}
+				/>
+			))}
+		</div>
 	);
 }
